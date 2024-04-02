@@ -1,3 +1,4 @@
+
 const baseURL = "https://ci-swapi.herokuapp.com/api/";
 
 function getData(type, cb) {
@@ -11,10 +12,17 @@ function getData(type, cb) {
 
     xhr.open("GET", baseURL + type + "/");
     xhr.send();
-    }
+}
 
 function writeToDocument(type) {
-    getData(type, function(data){
-        document.getElementById("data").innerHTML = data;
+    var el = document.getElementById("data");
+    el.innerHTML = "";
+
+    getData(type, function(data) {
+        data = data.results;
+
+        data.forEach(function(item) {
+            el.innerHTML += "<p>" + item.name + "</p>";
+        });
     });
 }
